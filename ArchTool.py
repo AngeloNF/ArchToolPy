@@ -8,7 +8,7 @@ print("Bienvenido a la guia de instalación rapida de Arch")
 
 #Comprobando modalidad de arranque
 print("Comprobando la modalidad de arranque...")
-uefi = subprocess.run('ls /sys/firmware/efi/efivars', shell=True, stdout=subprocess.PIPE)
+uefi = subprocess.run('ls /sys/firmware/efi/efivars', shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 if uefi.stderr is None:
     print("Modalidad de arranque UEFI")
     b_uefi = True
@@ -45,7 +45,7 @@ while True:
         print(item)
     region = input("Escriba el nombre de la region: ").capitalize()
     
-    regionTest = subprocess.run('ls /mnt/usr/share/zoneinfo/'+region, shell=True, stdout=subprocess.PIPE)
+    regionTest = subprocess.run('ls /mnt/usr/share/zoneinfo/'+region, shell=True, stdout=subprocess.PIPE, stdout=subprocess.PIPE)
     if regionTest.stderr is None:
         break
     else:
