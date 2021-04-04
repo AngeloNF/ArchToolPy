@@ -45,7 +45,7 @@ while True:
         print(item)
     region = input("Escriba el nombre de la region: ").capitalize()
     
-    regionTest = subprocess.run('ls /mnt/usr/share/zoneinfo/'+region, shell=True, stdout=subprocess.PIPE, stdout=subprocess.PIPE)
+    regionTest = subprocess.run('ls /mnt/usr/share/zoneinfo/'+region, shell=True)
     if regionTest.returncode is 0:
         break
     else:
@@ -62,7 +62,7 @@ while True:
         print(item)
     pais = input("Escriba el nombre de la region: ").capitalize()
     
-    paisTest = subprocess.run('ls /mnt/usr/share/zoneinfo/'+region+"/"+pais, shell=True, stdout=subprocess.PIPE)
+    paisTest = subprocess.run('ls /mnt/usr/share/zoneinfo/'+region+"/"+pais, shell=True)
     if paisTest.returncode is 0:
         break
     else:
