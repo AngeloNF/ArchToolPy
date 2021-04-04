@@ -26,7 +26,7 @@ print("Guardando particiones")
 subprocess.run('genfstab /mnt >> /mnt/etc/fstab', shell=True)
 
 #Guardando el nombre de la maquina
-hostname = input("Digite el nombre del equipo: ")
+hostname = int(input("Digite el nombre del equipo: "))
 
 #subprocess.run('arch-chroot /mnt echo '+hostname+' >> /mnt/etc/hostname', shell=True)
 
