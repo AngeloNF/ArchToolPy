@@ -12,16 +12,21 @@ if uefi.stdout is None:
     print("Modalidad de arranque BIOS")
     b_uefi = False
 
+#Actualizando repositorios
+print("Seleccionando los 10 mejores sevidores replica")
+subprocess.run('reflector --verbose --latest 10 --sort rate --save /etc/pacman.d/mirrorlist', shell=True)
+
 #Instalando paquetes basicos
 print("Instalando paquetes base...")
-subprocess.run('pacstrap /mnt linux linux-firmware base base-devel nano os-prober grub networkmanager dhcpcd xterm efibootmgr netctl wpa_supplicant dialog sudo git python3 xorg-server xorg-apps xorg-xinit', shell=True)
+#subprocess.run('pacstrap /mnt linux linux-firmware base base-devel nano os-prober grub networkmanager dhcpcd xterm efibootmgr netctl wpa_supplicant dialog sudo git python3 xorg-server xorg-apps xorg-xinit', shell=True)
 
 #Guardando tabla de particiones
 print("Guardando particiones")
-subprocess.run('genfstab /mnt >> /mnt/etc/fstab')
+subprocess.run('genfstab /mnt >> /mnt/etc/fstab', shell=True)
 
 #Guardando el nombre de la maquina
-#hostname = input("Digite el nombre del equipo: ")
+hostname = input("Digite el nombre del equipo: ")
 
+subprocess.run('arch-chroot /mnt echo '+hostname+' >> /mnt/etc/hostname', shell=True)
 
 
