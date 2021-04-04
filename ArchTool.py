@@ -8,7 +8,7 @@ print("Bienvenido a la guia de instalación rapida de Arch")
 
 #Comprobando modalidad de arranque
 print("Comprobando la modalidad de arranque...")
-uefi = subprocess.run('ls /sys/firmware/efi/efivars', shell=True)
+uefi = subprocess.run('ls /sys/firmware/efi/efivars', shell=True, stdout=subprocess.PIPE)
 if uefi.returncode is 0:
     print("Modalidad de arranque UEFI")
     b_uefi = True
@@ -33,6 +33,7 @@ hostname = input("Digite el nombre del equipo: ")
 
 subprocess.run('arch-chroot /mnt echo '+hostname+' >> /mnt/etc/hostname', shell=True)
 
+#Buscando Continente
 resultado =[]
 for item in os.listdir("/mnt/usr/share/zoneinfo"):
     if os.path.isdir("/mnt/usr/share/zoneinfo/"+item):
@@ -45,15 +46,17 @@ while True:
         print(item)
     region = input("Escriba el nombre de la region: ").capitalize()
     
-    regionTest = subprocess.run('ls /mnt/usr/share/zoneinfo/'+region, shell=True)
+    regionTest = subprocess.run('ls /mnt/usr/share/zoneinfo/'+region, shell=True, stdout=subprocess.PIPE)
     if regionTest.returncode is 0:
         break
     else:
         print("Error al encontrar la region, verifiquelo e intente de nuevo")
 
+
+#Buscando Paises del contiente elegido
 resultado =[]
 for item in os.listdir("/mnt/usr/share/zoneinfo/"+region):
-    if os.path.isdir("/mnt/usr/share/zoneinfo/"+region+"/"+item):
+    if os.path.isfile("/mnt/usr/share/zoneinfo/"+region+"/"+item):
         resultado.append(item)
 
 while True:
@@ -62,7 +65,7 @@ while True:
         print(item)
     pais = input("Escriba el nombre de la region: ").capitalize()
     
-    paisTest = subprocess.run('ls /mnt/usr/share/zoneinfo/'+region+"/"+pais, shell=True)
+    paisTest = subprocess.run('ls /mnt/usr/share/zoneinfo/'+region+"/"+pais, shell=True, stdout=subprocess.PIPE)
     if paisTest.returncode is 0:
         break
     else:
