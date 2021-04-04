@@ -1,5 +1,6 @@
 import subprocess
 
+
 print("Bienvenido a la guia de instalación rapida de Arch")
 
 #Comprobando modalidad de arranque
@@ -14,7 +15,7 @@ if uefi.stdout is None:
 
 #Actualizando repositorios
 print("Seleccionando los 10 mejores sevidores replica")
-subprocess.run('reflector --verbose --latest 10 --sort rate --save /etc/pacman.d/mirrorlist', shell=True)
+#subprocess.run('reflector --latest 10 --sort rate --save /etc/pacman.d/mirrorlist', shell=True)
 
 #Instalando paquetes basicos
 print("Instalando paquetes base...")
@@ -27,6 +28,6 @@ subprocess.run('genfstab /mnt >> /mnt/etc/fstab', shell=True)
 #Guardando el nombre de la maquina
 hostname = input("Digite el nombre del equipo: ")
 
-subprocess.run('arch-chroot /mnt echo '+hostname+' >> /mnt/etc/hostname', shell=True)
+#subprocess.run('arch-chroot /mnt echo '+hostname+' >> /mnt/etc/hostname', shell=True)
 
 
