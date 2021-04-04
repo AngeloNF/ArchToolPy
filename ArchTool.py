@@ -74,15 +74,15 @@ while True:
         break
     else:
         print("Error al encontrar la region, verifiquelo e intente de nuevo")
-    
-    print("Configurando Idiomas Predeterminados:")
-    #Agregando idiomas predeterminados
-    subprocess.run('arch-chroot /mnt echo es_CR ISO-8859-1 >> /mnt/etc/locale.gen', shell=True)
-    subprocess.run('arch-chroot /mnt echo es_CR.UTF-8 UTF-8 >> /mnt/etc/locale.gen', shell=True)
-    subprocess.run('arch-chroot /mnt echo en_US ISO-8859-1 >> /mnt/etc/locale.gen', shell=True)
-    subprocess.run('arch-chroot /mnt echo en_US.UTF-8 UTF-8 >> /mnt/etc/locale.gen', shell=True)
-    #Generando Idiomas
-    subprocess.run('arch-chroot /mnt locale-gen', shell=True)
 
-    print("Configurando Reloj del sistema")
-    subprocess.run('arch-chroot /mnt  hwclock -w', shell=True)
+print("Configurando Idiomas Predeterminados:")
+#Agregando idiomas predeterminados
+subprocess.run('arch-chroot /mnt echo es_CR ISO-8859-1 >> /mnt/etc/locale.gen', shell=True)
+subprocess.run('arch-chroot /mnt echo es_CR.UTF-8 UTF-8 >> /mnt/etc/locale.gen', shell=True)
+subprocess.run('arch-chroot /mnt echo en_US ISO-8859-1 >> /mnt/etc/locale.gen', shell=True)
+subprocess.run('arch-chroot /mnt echo en_US.UTF-8 UTF-8 >> /mnt/etc/locale.gen', shell=True)
+#Generando Idiomas
+subprocess.run('arch-chroot /mnt locale-gen', shell=True)
+
+print("Configurando Reloj del sistema")
+subprocess.run('arch-chroot /mnt  hwclock -w', shell=True)
