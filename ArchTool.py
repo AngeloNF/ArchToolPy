@@ -127,6 +127,7 @@ subprocess.run('arch-chroot /mnt passwd', shell=True)
     
 while True:
     userp = input("Escriba el nombre del usuario personal:")
+    subprocess.run('arch-chroot /mnt useradd -m '+userp, shell=True)
     print("Introduzca la contraseña del usuario "+userp+": ")
     subprocess.run('arch-chroot /mnt passwd '+userp, shell=True)
     print("¿Desea agregar otro usuario?")
