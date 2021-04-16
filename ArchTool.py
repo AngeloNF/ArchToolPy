@@ -175,6 +175,7 @@ while True:
     subprocess.run('arch-chroot /mnt useradd -m '+userp, shell=True)
     print("Introduzca la contraseña del usuario "+userp+": ")
     subprocess.run('arch-chroot /mnt passwd '+userp, shell=True)
+    subprocess.run('arch-chroot /mnt sed -i "79a '+userp+' ALL=(ALL) ALL" /mnt/etc/sudoers', shell=True)
     print("¿Desea agregar otro usuario?")
     print("1.Si , 2. No")
     otrouser = input("Seleccione una opcion:")
@@ -183,6 +184,5 @@ while True:
 
 
 print("Activando servicios de red...")
-subprocess.run('arch-chroot /mnt systemctl start NetworkManager.service', shell=True)
 subprocess.run('arch-chroot /mnt systemctl enable NetworkManager.service', shell=True)
 
