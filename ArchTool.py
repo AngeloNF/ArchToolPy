@@ -8,24 +8,67 @@ print("Bienvenido a la guia de instalación rapida de Arch")
 
 
 #Actualizando repositorios
-print("Seleccionando los 10 mejores sevidores replica")
-subprocess.run('reflector --latest 10 --sort rate --save /etc/pacman.d/mirrorlist', shell=True)
+print("Seleccionando los 15 mejores sevidores replica")
+subprocess.run('reflector --latest 15 --sort rate --save /etc/pacman.d/mirrorlist', shell=True)
+
+#Aligiendo procesador y grafica
+while True:
+    print("¿Que procesador posee su equipo?")
+    print("1.Intel")
+    print("2.AMD")
+    procesador=input("Elija una opcion: ")
+    if (procesador=='1'):
+        procesador= " intel-ucode "
+        break
+    elif (procesador=='2'):
+        procesador=" amd-ucode "
+        break
+    else:
+        print("Elija una opcion correcta")
+
+
+while True:
+    print("¿Que grafica posee su equipo?")
+    print("1.Intel")
+    print("2.AMD / ATI")
+    print("3.Nvidia")
+    grafica=input("Elija una opcion: ")
+    if (grafica=='1'):
+        grafica= " xf86-video-intel "
+        break
+    elif (grafica=='3'):
+        grafica=" xf86-video-nouveau "
+        break
+    elif (grafica=='2'):
+        print("¿Que grafica AMD / ATI posee su equipo?")
+        print("1. AMD (modernas)")
+        print("2. ATI (antiguas)")
+        grafica = input("Elija una opcion:")
+        if(grafica=='1'):
+            grafica = " xf86-video-amdgpu "
+            break
+        elif(grafica=='2'):
+            grafica = " xf86-video-ati "
+            break
+
+
 
 #Instalando paquetes basicos
 print("Instalando paquetes base...")
-subprocess.run('pacstrap /mnt linux linux-firmware base base-devel nano os-prober grub networkmanager dhcpcd xterm efibootmgr netctl wpa_supplicant dialog sudo git python3 xorg-server xorg-apps xorg-xinit', shell=True)
+subprocess.run('pacstrap /mnt linux linux-firmware base base-devel nano os-prober grub networkmanager dhcpcd xterm efibootmgr netctl wpa_supplicant dialog sudo git python3 xorg-server xorg-apps xorg-xinit alacritty xf86-video-vesa '+procesador+grafica, shell=True)
 
 #Guardando tabla de particiones
 print("Guardando particiones")
 subprocess.run('genfstab /mnt >> /mnt/etc/fstab', shell=True)
 
 #Guardando el nombre de la maquina
-if os.path.exists('/mnt/etc/hostname'):
-    print("Nombre del equipo: ")
-    subprocess.run(' cat /mnt/etc/hostname', shell=True)
-else:
-    hostname = input("Digite el nombre del equipo: ")
-    subprocess.run('arch-chroot /mnt echo '+hostname+' >> /mnt/etc/hostname', shell=True)
+
+hostname = input("Digite el nombre del equipo: ")
+subprocess.run('arch-chroot /mnt echo '+hostname+' >> /mnt/etc/hostname', shell=True)
+subprocess.run('arch-chroot /mnt echo "127.0.0.1 localhost" >> /mnt/etc/hosts', shell=True)
+subprocess.run('arch-chroot /mnt echo "::1 localhost" >> /mnt/etc/hosts', shell=True)
+subprocess.run('arch-chroot /mnt echo "127.0.1.1 '+hostname+'.localdomain '+hostname+'" >> /mnt/etc/hosts', shell=True)
+
 
 #Buscando Continente
 resultado =[]
@@ -77,6 +120,8 @@ subprocess.run('arch-chroot /mnt locale-gen', shell=True)
 
 print("Configurando Reloj del sistema")
 subprocess.run('arch-chroot /mnt  hwclock -w', shell=True)
+subprocess.run('arch-chroot /mnt timedatectl set-ntp true', shell=True)
+
 
 print('Elija el idioma de su sistema.')
 print('1. Español, Costa Rica')
@@ -135,3 +180,9 @@ while True:
     otrouser = input("Seleccione una opcion:")
     if otrouser != "1":
         break
+
+
+print("Activando servicios de red...")
+subprocess.run('arch-chroot /mnt systemctl start NetworkManager.service', shell=True)
+subprocess.run('arch-chroot /mnt systemctl enable NetworkManager.service', shell=True)
+
