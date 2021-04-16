@@ -55,7 +55,7 @@ while True:
 
 #Instalando paquetes basicos
 print("Instalando paquetes base...")
-subprocess.run('pacstrap /mnt linux linux-firmware base base-devel nano os-prober grub networkmanager dhcpcd xterm efibootmgr netctl wpa_supplicant dialog sudo git python3 xorg-server xorg-apps xorg-xinit alacritty xf86-video-vesa '+procesador+grafica, shell=True)
+subprocess.run('pacstrap /mnt linux linux-firmware base base-devel nano os-prober grub networkmanager dhcpcd xterm efibootmgr netctl wpa_supplicant dialog sudo git python3 xorg-server xorg-apps xorg-xinit alacritty xf86-video-vesa archey3 '+procesador+grafica, shell=True)
 
 #Guardando tabla de particiones
 print("Guardando particiones")
